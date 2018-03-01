@@ -14,10 +14,15 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { ChatComponent } from './components/chat/chat.component';
 
+// servicios
+import { ChatService } from './providers/chat.service';
+import { LoginComponent } from './components/login/login.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    ChatComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,9 @@ import { ChatComponent } from './components/chat/chat.component';
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
     FormsModule
   ],
-  providers: [],
+  providers: [
+    ChatService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
