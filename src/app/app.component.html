@@ -5,14 +5,17 @@
         <button type="button" class="btn btn-outline-danger" (click)="_cs.logout()">
             Salir
         </button>
+
     </div>
 
     <app-login *ngIf="!_cs.usuario.uid"></app-login>
 
-    <div class="chat-window" *ngIf="_cs.usuario.uid">
+    <div class="chat-window" *ngIf="_cs.usuario.uid" style="float:left;">
 
         <app-chat></app-chat>
 
     </div>
+    <div style="padding: 5px; float: left;"></div>
+    <app-perfil *ngIf="_cs.detalleMensaje" class="fadeIn"></app-perfil>
 
 </div>

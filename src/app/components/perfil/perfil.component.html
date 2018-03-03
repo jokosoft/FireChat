@@ -1,0 +1,38 @@
+<div class="chat-window" style="float:left;">
+    <img src="{{ _cs.detalleMensaje.foto }}" height="50px;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="_cs.quitarDatosDetalle()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <hr>
+    <h4>
+        {{ _cs.detalleMensaje.nombre }}
+    </h4>
+    <h6>
+        {{ _cs.detalleMensaje.email }}
+    </h6>
+    <hr>
+    <p style="font-weight: bold; text-align: right;">
+        {{ _cs.detalleMensaje.fechaString }}
+    </p>
+    <div *ngIf="_cs.detalleMensaje.eliminado">
+        <img src="../../../assets/img/mensajeEliminado.png" width="22px;">
+        <span>
+                Este mensaje ha sido eliminado.
+            </span>
+    </div>
+    <p *ngIf="!_cs.detalleMensaje.eliminado">
+
+        {{ _cs.detalleMensaje.mensaje }}
+    </p>
+    <div *ngIf="!_cs.detalleMensaje.eliminado && esMismoUsuario()">
+        <button type="button" class="btn btn-outline-danger" (click)="eliminarMensaje(_cs.detalleMensaje)">
+            Eliminar mensaje
+        </button>
+    </div>
+    <br/>
+    <div *ngIf="esAdmin">
+        <button type="button" class="btn btn-outline-danger" (click)="borradoFisicoMensaje(_cs.detalleMensaje)">
+            Eliminado Permanente
+        </button>
+    </div>
+</div>

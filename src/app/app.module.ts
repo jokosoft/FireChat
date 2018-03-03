@@ -16,13 +16,17 @@ import { ChatComponent } from './components/chat/chat.component';
 
 // servicios
 import { ChatService } from './providers/chat.service';
+import { AdminService } from './providers/admin.service';
+
 import { LoginComponent } from './components/login/login.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
-    LoginComponent
+    LoginComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,8 @@ import { LoginComponent } from './components/login/login.component';
     FormsModule
   ],
   providers: [
-    ChatService
+    ChatService,
+    AdminService
   ],
   bootstrap: [AppComponent]
 })

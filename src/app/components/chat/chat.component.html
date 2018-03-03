@@ -1,17 +1,28 @@
-<h1>Chat</h1>
+<h3>Chat</h3>
 <hr>
 
 <div class="app-mensajes" id="app-mensajes">
 
     <div *ngFor="let chat of _cs.chats" [ngClass]="{ 'text-right': _cs.usuario.uid == chat.uid }">
-        <span class="badge" [ngClass]="{ 'badge-primary': _cs.usuario.uid == chat.uid,
-                            'badge-success': _cs.usuario.uid != chat.uid}">
-                            {{chat.nombre }}</span>
+        <span class="badge puntero" [ngClass]="{ 'badge-primary': _cs.usuario.uid == chat.uid,
+            'badge-success': _cs.usuario.uid != chat.uid}" (click)="chatClick(chat)">
+            <img src="{{ chat.foto }}" class="rounded-circle fotoPerfil">
+            {{chat.nombre }}
+        </span>
         <p>
-            {{ chat.mensaje }}
-        </p>
+            <span class="puntero" (click)="chatClick(chat)">
+                <div *ngIf="chat.eliminado">
+                    <img src="../../../assets/img/mensajeEliminado.png" width="22px;">
+                    <span>
+                        Este mensaje ha sido eliminado.
+                    </span>
     </div>
-
+    <div *ngIf="!chat.eliminado">
+        {{ chat.mensaje }}
+    </div>
+    </span>
+    </p>
+</div>
 </div>
 
 <input type="text" name="mensaje" [(ngModel)]="mensaje" placeholder="Enviar Mensaje" (Keyup.enter)="enviar_mensaje()" class="form-control">

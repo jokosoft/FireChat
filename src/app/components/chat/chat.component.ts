@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../../providers/chat.service';
+import { Mensaje } from '../../interface/mensaje.interface';
 
 @Component({
   selector: 'app-chat',
@@ -39,6 +40,10 @@ export class ChatComponent implements OnInit {
           .then( () => this.mensaje = '' )
           .catch( (err) => console.error('Error al enviar', err) );
 
+  }
+
+  chatClick(chat: Mensaje) {
+    this._cs.establecerDatosDetalle(chat);
   }
 
 }

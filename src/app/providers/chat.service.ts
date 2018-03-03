@@ -15,6 +15,7 @@ export class ChatService {
   public chats: Mensaje[] = [];
 
 public usuario: any = {};
+public detalleMensaje: Mensaje = null;
 
   constructor(
       private afs: AngularFirestore,
@@ -29,6 +30,8 @@ public usuario: any = {};
 
         this.usuario.nombre = user.displayName;
         this.usuario.uid = user.uid;
+        this.usuario.foto = user.photoURL;
+        this.usuario.email = user.email;
 
       });
 
@@ -40,6 +43,7 @@ public usuario: any = {};
 
   logout() {
     this.usuario = {};
+    this.quitarDatosDetalle();
     this.afAuth.auth.signOut();
   }
 
@@ -64,15 +68,41 @@ public usuario: any = {};
 
   agregarMensaje( texto: string ) {
 
+    let fecha = new Date().getTime();
+
     let mensaje: Mensaje = {
+      uid: this.usuario.uid,
       nombre: this.usuario.nombre,
       mensaje: texto,
-      fecha: new Date().getTime(),
-      uid: this.usuario.uid
-    }
+      fecha: fecha,
+      _id: this.usuario.uid + fecha,
+      eliminado: false,
+      email: this.usuario.email,
+      foto: this.usuario.foto,
+    };
 
-    return this.itemsCollection.add( mensaje );
+    return this.itemsCollection.doc(mensaje._id).set(mensaje);
 
+  }
+
+  eliminarMensaje(mensaje: Mensaje) {
+    // se actualiza el texto del campo mensaje a ..este mensaje ha sido eliminado
+    return this.itemsCollection.doc(mensaje._id)
+            .update({ eliminado: true });
+  }
+
+  borradoFisicoMensaje(mensaje: Mensaje) {
+    return this.itemsCollection.doc(mensaje._id)
+            .delete();
+  }
+
+  establecerDatosDetalle( chat: Mensaje ) {
+    this.detalleMensaje = chat;
+    this.detalleMensaje.fechaString = new Date(chat.fecha).toLocaleString();
+  }
+
+  quitarDatosDetalle() {
+    this.detalleMensaje = null;
   }
 
 }
